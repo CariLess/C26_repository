@@ -5,6 +5,7 @@
 const Engine = Matter.Engine; //crea un motor físico
 const World = Matter.World    //crea un mundo
 const Bodies = Matter.Bodies; //crea los objetos físicos que habitan en el mundo
+const Constraint = Matter.Constraint;
 
 //2 creamos variables para alojar el motor y el mundo
 var motor, mundo;
@@ -18,6 +19,7 @@ var tronco_inclinado, tronco_inclinado2;
 var pajaro;
 var backgroundImg;
 
+var tronco_restringido;
 function preload(){
   backgroundImg = loadImage("sprites/bg.png");
 }
@@ -46,7 +48,17 @@ function setup() {
   caja5 = new Box(810,205,70,70);
 
   pajaro = new Bird(100,100);
+  tronco_restringido = new Log(230, 180, 80, PI / 2);
 
+  var options = {
+    bodyA: pajaro.body,
+    bodyB: tronco_restringido.body,
+    stiffness: 0.04,
+    length: 10
+  }
+
+  var chain = Constraint.create(options);
+  World.add(mundo, chain);
 }
 
 function draw() {
@@ -68,4 +80,9 @@ function draw() {
   caja5.display();
   pajaro.display();
   //console.log(mouseX,mouseY);
+  tronco_restringido.display();
+
+  strokeWeight(3);
+  line(pajaro.body.position.x, pajaro.body.position.y, tronco_restringido.body.position.x, tronco_restringido.body.position.y);
+
 }

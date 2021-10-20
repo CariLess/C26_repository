@@ -1,0 +1,14 @@
+class Chain{
+constructor(bodyA, bodyB){
+
+
+}
+
+display(){
+
+
+    
+}
+
+
+}
