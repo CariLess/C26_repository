@@ -11,7 +11,7 @@ const Constraint = Matter.Constraint;
 var motor, mundo;
 //3 creamos variables para los objetos en nuestro mundo
 var caja, caja2, caja3, caja4, caja5;
-var ground;
+var ground, plataforma;
 var cerdito,cerdito2;
 var tronco, tronco2;
 var tronco_inclinado, tronco_inclinado2;
@@ -32,7 +32,7 @@ function setup() {
   mundo = motor.world;
 
   ground = new Ground(600,height,1200,20);
-
+  plataforma = new Ground(150,305,300,170);
   caja = new Box(700,365,70,70);
   caja2 = new Box(920,365,70,70);
   cerdito = new Pig(810,395);
@@ -49,17 +49,12 @@ function setup() {
 
   pajaro = new Bird(100,100);
   tronco_restringido = new Log(230, 180, 80, PI / 2);
+  resortera = new Resortera (pajaro.body,{x:200,y:100});
 
-  var options = {
-    bodyA: pajaro.body,
-    bodyB: tronco_restringido.body,
-    stiffness: 0.04,
-    length: 10
-  }
+  
 
-  var chain = Constraint.create(options);
-  World.add(mundo, chain);
 }
+  
 
 function draw() {
   background(backgroundImg);
@@ -80,9 +75,17 @@ function draw() {
   caja5.display();
   pajaro.display();
   //console.log(mouseX,mouseY);
-  tronco_restringido.display();
+  // tronco_restringido.display();
+  resortera.display();
+  plataforma.display();
 
-  strokeWeight(3);
-  line(pajaro.body.position.x, pajaro.body.position.y, tronco_restringido.body.position.x, tronco_restringido.body.position.y);
+}
 
+function mouseDragged(){
+  Matter.Body.setPosition(pajaro.body,{x:mouseX,y:mouseY});
+
+}
+
+function mouseReleased(){
+  resortera.fly();
 }
