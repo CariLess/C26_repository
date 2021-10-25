@@ -47,9 +47,9 @@ function setup() {
   tronco_inclinado = new Log(760,165,150,PI/4);
   caja5 = new Box(810,205,70,70);
 
-  pajaro = new Bird(100,100);
+  pajaro = new Bird(200,50);
   tronco_restringido = new Log(230, 180, 80, PI / 2);
-  resortera = new Resortera (pajaro.body,{x:200,y:100});
+  resortera = new Resortera (pajaro.body,{x:200,y:50});
 
   
 
@@ -78,7 +78,7 @@ function draw() {
   // tronco_restringido.display();
   resortera.display();
   plataforma.display();
-
+//console.log(mouseX, mouseY);
 }
 
 function mouseDragged(){
